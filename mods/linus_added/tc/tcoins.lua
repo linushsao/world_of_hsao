@@ -20,7 +20,7 @@ minetest.register_craftitem("tc:picachu_coin", {
 	inventory_image = "tc_picachu.png",
     stack_max = 30000,
 })
-
+--[[
 minetest.register_craftitem("tc:nc_coin", {
 	description = "NC_COIN,1 minute",
 	inventory_image = "nc_coin.png",
@@ -39,10 +39,129 @@ minetest.register_craftitem("tc:nc_coin60", {
     stack_max = 30000,
 })
 
+minetest.register_craftitem("tc:nc_coin05", {
+	description = "NC_COIN,5 minute",
+	inventory_image = "nc_coin05.png",
+    stack_max = 30000,
+})
+--]]
+
+
 -- about nettime
+function add_nccoin(node, desc, inv_image, amount)
+
+	minetest.register_craftitem(node, {
+    description = desc,
+    inventory_image = inv_image,
+    stack_max = 30000,
+
+    on_use = function(itemstack, user, pointed_thing)
+
+   	local file_path = "/home/linus/script/nc_"
+   	local cmd_path = "/home/linus/script/nat-add-nc.sh"
+  	local nettime = ""
+   	local add_name = ""
+    local name = user:get_player_name()
+    local add_time = amount
+    
+		print("NAME: "..name)
+		
+  		if name == "rose" then
+			add_name = "ROSE"
+			elseif name == "austin" then
+			add_name = "AUSTIN"
+			elseif name == "linus" then
+			add_name = "LINUS"
+			print("DONE")
+		end
+
+		os.execute(cmd_path.." "..add_name.." "..add_time)
+		-- Takes one item from the stack
+		itemstack:take_item()
+		return itemstack
+
+	end,
+	})
+
+end
+
+add_nccoin("tc:nc_coin","ADD 1 minutes","nc_coin.png",1) --node, desc, inv_image, amount
+add_nccoin("tc:nc_coin05","ADD 5 minutes","nc_coin05.png",5)
+add_nccoin("tc:nc_coin15","ADD 15 minutes","nc_coin15.png",15)
+add_nccoin("tc:nc_coin30","ADD 30 minutes","nc_coin30.png",30)
+add_nccoin("tc:nc_coin60","ADD 60 minutes","nc_coin60.png",60)
+
+--[[
+minetest.register_craftitem("tc:nc_coin", {
+    description = "ADD 1 minutes",
+    inventory_image = "nc_coin.png",
+    stack_max = 30000,
+
+    on_use = function(itemstack, user, pointed_thing)
+
+   	local file_path = "/home/linus/script/nc_"
+   	local cmd_path = "/home/linus/script/nat-add-nc.sh"
+  	local nettime = ""
+   	local add_name = ""
+    local name = user:get_player_name()
+    local add_time = "1"
+    
+		print("NAME: "..name)
+		
+  		if name == "rose" then
+			add_name = "ROSE"
+			elseif name == "austin" then
+			add_name = "AUSTIN"
+			elseif name == "linus" then
+			add_name = "LINUS"
+			print("DONE")
+		end
+
+		os.execute(cmd_path.." "..add_name.." "..add_time)
+		-- Takes one item from the stack
+		itemstack:take_item()
+		return itemstack
+
+	end,
+})
+
+minetest.register_craftitem("tc:nc_coin05", {
+    description = "ADD 5 minutes",
+    inventory_image = "nc_coin05.png",
+    stack_max = 30000,
+
+    on_use = function(itemstack, user, pointed_thing)
+
+   	local file_path = "/home/linus/script/nc_"
+   	local cmd_path = "/home/linus/script/nat-add-nc.sh"
+  	local nettime = ""
+   	local add_name = ""
+    local name = user:get_player_name()
+    local add_time = "5"
+    
+		print("NAME: "..name)
+		
+  		if name == "rose" then
+			add_name = "ROSE"
+			elseif name == "austin" then
+			add_name = "AUSTIN"
+			elseif name == "linus" then
+			add_name = "LINUS"
+			print("DONE")
+		end
+
+		os.execute(cmd_path.." "..add_name.." "..add_time)
+		-- Takes one item from the stack
+		itemstack:take_item()
+		return itemstack
+
+	end,
+})
+
 minetest.register_craftitem("tc:nc_coin15", {
     description = "ADD 15 minutes",
     inventory_image = "nc_coin15.png",
+    stack_max = 30000,
 
     on_use = function(itemstack, user, pointed_thing)
 
@@ -75,6 +194,7 @@ minetest.register_craftitem("tc:nc_coin15", {
 minetest.register_craftitem("tc:nc_coin30", {
     description = "ADD 30 minutes",
     inventory_image = "nc_coin30.png",
+    stack_max = 30000,
 
     on_use = function(itemstack, user, pointed_thing)
 
@@ -107,6 +227,7 @@ minetest.register_craftitem("tc:nc_coin30", {
 minetest.register_craftitem("tc:nc_coin60", {
     description = "ADD 60 minutes",
     inventory_image = "nc_coin60.png",
+    stack_max = 30000,
 
     on_use = function(itemstack, user, pointed_thing)
 
@@ -135,6 +256,8 @@ minetest.register_craftitem("tc:nc_coin60", {
 
 	end,
 })
+
+--]]
 
 -- ALL COMMANDs
 minetest.register_chatcommand("net", {
@@ -215,4 +338,39 @@ minetest.register_chatcommand("net", {
  end,
 })
 
+--recipe
+minetest.register_craft({
+	output = 'tc:nc_coin05 1',
+	recipe = {
+		{'tc:nc_coin','tc:nc_coin','tc:nc_coin'},
+		{'tc:nc_coin','tc:nc_coin',''},
+		{'','',''},
+	}
+})
 
+minetest.register_craft({
+	output = 'tc:nc_coin15 1',
+	recipe = {
+		{'tc:nc_coin05','tc:nc_coin05','tc:nc_coin05'},
+		{'','',''},
+		{'','',''},
+	}
+})
+
+minetest.register_craft({
+	output = 'tc:nc_coin30 1',
+	recipe = {
+		{'tc:nc_coin15','tc:nc_coin15',''},
+		{'','',''},
+		{'','',''},
+	}
+})
+
+minetest.register_craft({
+	output = 'tc:nc_coin60 1',
+	recipe = {
+		{'tc:nc_coin30','tc:nc_coin30',''},
+		{'','',''},
+		{'','',''},
+	}
+})
