@@ -152,7 +152,7 @@ local npc_trader_prototype = {
 				graphics_3d = {
 					visual = "mesh",
 					mesh = "npc_character.b3d",
-					textures = {"mob_npc_trader_mesh.png"},
+					textures = {"mob_npc_trader_mesh1.png"},
 					collisionbox = {-0.3,-1.0,-0.3, 0.3,0.8,0.3},
 					visual_size= {x=1, y=1},
 					},
@@ -190,11 +190,13 @@ local npc_trader_prototype = {
 		},
 		trader_inventory = {
 				goods = {
-          { "tc:tcoin 92","","tc:picachu_coin 10"},
+          { "tc:tcoin 105","","tc:picachu_coin 10"},
           { "tc:picachu_coin 10","","tc:tcoin 92"},
           { "tc:tcoin 1","","tc:ibu_coin 1"},
           { "tc:ibu_coin 1","","tc:tcoin 1"},
-
+          { "tc:nc_coin15 1","","tc:nc_coin 15"},
+          { "tc:nc_coin30 1","tc:nc_coin15 2","tc:nc_coin 30"},
+          { "tc:nc_coin60 1","tc:nc_coin15 4","tc:nc_coin30 2"},
 						},
 				random_names = { "Hans","Franz","Xaver","Fritz","Thomas","Martin"},
 			}
