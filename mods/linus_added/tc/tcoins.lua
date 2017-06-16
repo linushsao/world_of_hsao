@@ -314,7 +314,9 @@ minetest.register_chatcommand("net", {
 		return
 		elseif param == "on" then
 			os.execute("touch "..switch_path)	
+			os.execute("touch "..script_path.."minetest-launch")	
 			os.execute("sudo "..script_path.."run-nat-filter.sh")	
+			os.execute("rm "..script_path.."minetest-launch")	
 			minetest.chat_send_player(name, "CURRENT NETTIME SWITCH : ON")
 			return
 		elseif param == "off" then
