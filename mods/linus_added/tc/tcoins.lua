@@ -314,10 +314,12 @@ minetest.register_chatcommand("net", {
 		return
 		elseif param == "on" then
 			os.execute("touch "..switch_path)	
+			os.execute("sudo "..script_path.."run-nat-filter.sh")	
 			minetest.chat_send_player(name, "CURRENT NETTIME SWITCH : ON")
 			return
 		elseif param == "off" then
 			os.execute("rm "..switch_path)	
+			os.execute("sudo "..script_path.."run-nat-filter.sh")	
 			minetest.chat_send_player(name, "CURRENT NETTIME SWITCH : OFF")
 		elseif param == "save" then
 			--count the current NC
