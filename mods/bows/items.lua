@@ -81,7 +81,11 @@ bows.register_arrow("arrow",{
 	texture="bows_arrow_wood.png",
 	damage=5,
 	craft_count=8,
-	craft={{"default:flint","group:stick","farming:cotton"},}
+	craft={
+				{"group:stick","group:stick","farming:cotton"},
+				{"","",""},
+				{"","",""},
+			}
 })
 
 bows.register_arrow("arrow_steel",{

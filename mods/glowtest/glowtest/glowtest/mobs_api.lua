@@ -70,7 +70,10 @@ function glowtest:register_mob(name, def)
 			end
 			local x = math.sin(yaw) * -v
 			local z = math.cos(yaw) * v
+			if x ~= nil then --linus added
+			print("x:"..x)
 			self.object:setvelocity({x=x, y=self.object:getvelocity().y, z=z})
+			end
 		end,
 		
 		get_velocity = function(self)

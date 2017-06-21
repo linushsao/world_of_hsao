@@ -1,6 +1,6 @@
---~ 
+--~
 --~ Shot and reload system
---~ 
+--~
 
 local players = {}
 
@@ -23,6 +23,7 @@ function throwing_shoot_arrow (itemstack, player, stiffness, is_cross)
 	local playerpos = player:getpos()
 	local obj = minetest.add_entity({x=playerpos.x,y=playerpos.y+1.5,z=playerpos.z}, arrow)
 	local dir = player:get_look_dir()
+	if obj == nil then return end --linus added
 	obj:setvelocity({x=dir.x*stiffness, y=dir.y*stiffness, z=dir.z*stiffness})
 	obj:setacceleration({x=dir.x*-3, y=-8.5, z=dir.z*-3})
 	obj:setyaw(player:get_look_yaw()+math.pi)
@@ -30,6 +31,9 @@ function throwing_shoot_arrow (itemstack, player, stiffness, is_cross)
 		minetest.sound_play("throwing_crossbow_sound", {pos=playerpos})
 	else
 		minetest.sound_play("throwing_bow_sound", {pos=playerpos})
+	end
+	if obj:get_luaentity().player == nil or obj:get_luaentity().inventory == nil or obj:get_luaentity().stack == nil
+	then return
 	end
 	obj:get_luaentity().player = player
 	obj:get_luaentity().inventory = player:get_inventory()
@@ -80,7 +84,7 @@ function throwing_register_bow (name, desc, scale, stiffness, reload_time, tough
 		description = desc,
 		inventory_image = "throwing_" .. name .. ".png",
 		wield_scale = scale,
-	    stack_max = 1,	
+	    stack_max = 1,
 		on_use = function(itemstack, user, pointed_thing)
 			local pos = user:getpos()
 			local playerName = user:get_player_name()
@@ -91,7 +95,7 @@ function throwing_register_bow (name, desc, scale, stiffness, reload_time, tough
 			return itemstack
 		end,
 	})
-	
+
 	minetest.register_tool("throwing:" .. name .. "_loaded", {
 		description = desc,
 		inventory_image = "throwing_" .. name .. "_loaded.png",
@@ -104,7 +108,7 @@ function throwing_register_bow (name, desc, scale, stiffness, reload_time, tough
 			end
 			local unloaded = "throwing:" .. name
 			throwing_shoot_arrow(itemstack, user, stiffness, is_cross)
-			minetest.after(0, throwing_unload, itemstack, user, unloaded, wear)				
+			minetest.after(0, throwing_unload, itemstack, user, unloaded, wear)
 			return itemstack
 		end,
 		on_drop = function(itemstack, dropper, pointed_thing)
@@ -114,7 +118,7 @@ function throwing_register_bow (name, desc, scale, stiffness, reload_time, tough
 		end,
 		groups = {not_in_creative_inventory=1},
 	})
-	
+
 	minetest.register_craft({
 		output = 'throwing:' .. name,
 		recipe = craft

@@ -190,13 +190,10 @@ local npc_trader_prototype = {
 		},
 		trader_inventory = {
 				goods = {
-          { "tc:tcoin 105","","tc:picachu_coin 10"},
+          { "tc:tcoin 108","","tc:picachu_coin 10"},
           { "tc:picachu_coin 10","","tc:tcoin 92"},
           { "tc:tcoin 1","","tc:ibu_coin 1"},
           { "tc:ibu_coin 1","","tc:tcoin 1"},
-          { "tc:nc_coin15 1","","tc:nc_coin 15"},
-          { "tc:nc_coin30 1","tc:nc_coin15 2","tc:nc_coin 30"},
-          { "tc:nc_coin60 1","tc:nc_coin15 4","tc:nc_coin30 2"},
 						},
 				random_names = { "Hans","Franz","Xaver","Fritz","Thomas","Martin"},
 			}

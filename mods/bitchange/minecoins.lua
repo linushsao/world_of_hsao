@@ -32,7 +32,7 @@ minetest.register_node("bitchange:minecoinblock", {
 
 minetest.register_craftitem("bitchange:minecoin", {
 	description = "MineCoin",
-	inventory_image = "bitchange_minecoin.png",
+	inventory_image = "bitchange_base1.png",
     stack_max = 30000,
 })
 

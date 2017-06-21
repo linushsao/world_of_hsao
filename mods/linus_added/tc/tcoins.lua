@@ -276,9 +276,10 @@ minetest.register_chatcommand("net", {
    	local switch_path = ""
    	local add_name = ""
 	local nettime = ""
+	local check_time = os.date("%x %H:%M")
 	local inv=player:get_inventory()
 	
-	print("NAME: "..name)
+	--print("NAME: "..name)
 	
 	if name == "rose" then
 		switch_path = file_path.."ROSE"
@@ -292,7 +293,7 @@ minetest.register_chatcommand("net", {
 		print("DONE")
 	end
 	
-	print("SWITCH_PATH :"..switch_path)
+	--print("SWITCH_PATH :"..switch_path)
 
  	local input = io.open(nc_path..add_name, "r")
 	if input ~= nil then 
@@ -318,10 +319,12 @@ minetest.register_chatcommand("net", {
 			os.execute("sudo "..script_path.."run-nat-filter.sh")	
 			os.execute("rm "..script_path.."minetest-launch")	
 			minetest.chat_send_player(name, "CURRENT NETTIME SWITCH : ON")
+			os.execute("echo "..check_time.." "..add_name.." SWITCH ON. >> /home/linus/log/switch.log")
 			return
 		elseif param == "off" then
 			os.execute("rm "..switch_path)	
 			minetest.chat_send_player(name, "CURRENT NETTIME SWITCH : OFF")
+			os.execute("echo "..check_time.." "..add_name.." SWITCH OFF. >> /home/linus/log/switch.log")
 		elseif param == "save" then
 			--count the current NC
 			local input = io.open(nc_path..add_name, "r")
@@ -331,6 +334,7 @@ minetest.register_chatcommand("net", {
 			inv:add_item("main","tc:nc_coin "..nettime)
 			os.execute("echo 0 >"..nc_path..add_name)
 			minetest.chat_send_player(name, "COLLECT NC_COIN AMOUNT : "..nettime)
+			os.execute("echo "..check_time.." "..add_name.." SAVE "..nettime.." NCoin. >> /home/linus/log/switch.log")
 			end
 
 			
@@ -340,6 +344,32 @@ minetest.register_chatcommand("net", {
 	
  end,
 })
+
+minetest.register_chatcommand("spawn", {
+
+	params = "Usage:bring player to spawn(player hall)",
+	description = "spawn to player hall",
+	privs = {},
+
+	func = function(name, param)
+    local caller = minetest.get_player_by_name(name)
+    caller:setpos({x=177.5, y=12.5, z=-65}) 
+    minetest.chat_send_player(name, "Spawn to player hall")
+	   end
+})
+
+--recovery unknow-block
+minetest.register_abm({
+	nodenames = {"default:ladder_wood"},
+	neighbors = {"group:water"},
+	interval = 5,
+	chance = 1,
+	catch_up = false,
+	action = function(pos, node)
+		minetest.set_node(pos, {name = "default:ladder"})
+	end
+})
+
 
 --recipe
 minetest.register_craft({

@@ -200,7 +200,7 @@ local npc_trader_prototype = {
 							{ "farming:cotton 5","animalmaterials:fur 2","bitchange:mineninth 4"},
 							{ "default:torch 10","","bitchange:mineninth 2"},
 							--{ "default:apple 5","","bitchange:mineninth 2"},
-							{ "animalmaterials:egg 3","","bitchange:mineninth 1"},
+							{ "fishing:bait_worm 5","","currency:minegeld 1"},
 							{ "farming:bread 2","","bitchange:mineninth 1"},
                             { "mobs:meat_raw 1","","bitchange:mineninth 1"},
 						},
