@@ -245,5 +245,3 @@ minetest.log("action","\tadding mob "..npc_prototype.name)
 mobf_add_mob(npc_prototype)
 minetest.log("action","MOD: mob_npc mod                version " .. version .. " loaded")
 
---linus added
-dofile (modpath .. "/npc_tc.lua")
