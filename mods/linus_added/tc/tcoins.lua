@@ -3,7 +3,7 @@
 
 local user_table = {
 	["linus"]={["name"]="LINUS",["ratio"]=1,["tclog"]={},["nclog"]={},["switchlog"]={}},
-	["rose"]={["name"]="ROSE",["ratio"]=0.9,["tclog"]={},["nclog"]={},["switchlog"]={}},
+	["rose"]={["name"]="ROSE",["ratio"]=0.96,["tclog"]={},["nclog"]={},["switchlog"]={}},
 	["austin"]={["name"]="AUSTIN",["ratio"]=10.8,["tclog"]={},["nclog"]={},["switchlog"]={}},
 	["yfan"]={["name"]="YFAN",["ratio"]=1,["tclog"]={},["nclog"]={},["switchlog"]={}},
 	}
@@ -252,14 +252,14 @@ minetest.register_chatcommand("net", {
 			tmp_msg = check_time.." "..add_name.." SWITCH OFF"
 			table.insert(user_table[name].switchlog,tmp_msg)
 			
-		elseif p1 == "auto-off" and p2 ~= nil and p2 > 0 then
+		elseif p1 == "auto-off" and p2 ~= nil and tonumber(p2) > 0 then
 			os.execute("echo rm "..switch_path.." > "..all_path.tmp.."tmp"..name..".sh")	
 			os.execute("at now +"..math.floor(p2).."minutes -f "..all_path.tmp.."tmp"..name..".sh" )	
 			tmp_msg = check_time.." auto-off after "..math.floor(p2).." minutes"
 			table.insert(user_table[name].switchlog,tmp_msg)
 			minetest.chat_send_player(name, "Hi, PLAYER "..name.." ,NETTIME SWITCH WILL AUTO-OFF after "..p2.." minutes")
 			
-		elseif p1 == "auto-on" and p2 ~= nil and p2 > 0 then
+		elseif p1 == "auto-on" and p2 ~= nil and tonumber(p2) > 0 then
 			os.execute("echo touch "..switch_path.." > "..all_path.tmp.."tmp"..name..".sh")	
 			os.execute("at now +"..math.floor(p2).."minutes -f "..all_path.tmp.."tmp"..name..".sh" )	
 			tmp_msg = check_time.." auto-on after "..math.floor(p2).." minutes"
